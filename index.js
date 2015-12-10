@@ -27,7 +27,7 @@ app.get('/schema', function(request, response) {
 });
 
 app.get('/utterances', function(request, response) {
-    response.send('<pre>'+alexaApp.uterances()+'</pre>');
+    response.send('<pre>'+alexaApp.utterances()+'</pre>');
 });
 
 
