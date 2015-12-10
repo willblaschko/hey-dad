@@ -3,7 +3,7 @@
   "version": "0.1.2",
   
   "dependencies": {
-    "alexa-app": "2.1.x",
+    "alexa-app": "2.2.x",
     "express": "^4.13.0"
   },
   
