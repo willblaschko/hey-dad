@@ -15,7 +15,7 @@ var alexaApp = new alexa.app('hey-dad');
 alexaApp.express(app, "/api/");
 
 // Manually hook the handler function into express 
-express.post('/hey-dad',function(req, res) {
+app.post('/hey-dad',function(req, res) {
 	// connect express to alexa-app 
 	alexaApp.request(req.body)     
 	// alexa-app returns a promise with the response   
