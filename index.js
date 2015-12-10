@@ -5,10 +5,6 @@ var alexa = require('alexa-app');
 //initialize the app and set the port
 var app = express();
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.set('view engine','ejs');
 
