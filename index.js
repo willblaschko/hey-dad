@@ -96,6 +96,19 @@ alexaApp.intent('GoodbyeDad',{
 		response.send();
 });
 
+//our About intent, this talks about the icons we used
+alexaApp.intent('IntentAbout',{
+		//define our custom variables, in this case, none
+        "slots" : {},
+		//define our utterance
+        "utterances" : ["Tell me about this app"]
+    },
+    function(request, response){
+		//thanks FlatIcon and Freepik!
+		response.say("Icons made by Freepik from www.flaticon.com. The icon is licensed by CC BY 3.0");
+		response.send();
+});
+
 //this function gets a single joke based on a RNG
 var getJoke = function(){
 	var length = jokeList.length;
