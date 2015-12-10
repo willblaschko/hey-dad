@@ -4,6 +4,7 @@
   
   "dependencies": {
     "alexa-app": "2.2.x",
+    "ejs": "^2.3.1",
     "express": "^4.13.0"
   },
   
