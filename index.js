@@ -103,7 +103,7 @@ var getJoke = function(){
 	console.log("Getting joke #"+jokeNumber);
 	var joke = jokeList[jokeNumber];
 	console.log("Our joke is: "+joke);
-	return joke.
+	return joke;
 }
 
 //this function tries to do a dumb string match against our joke list, this is not performant
