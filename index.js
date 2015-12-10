@@ -100,9 +100,9 @@ alexaApp.intent('GoodbyeDad',{
 var getJoke = function(){
 	var length = jokeList.length;
 	var jokeNumber = Math.floor(Math.random() * length);
-	console.log("Getting joke #"+jokeNumber");
+	console.log("Getting joke #"+jokeNumber);
 	var joke = jokeList[jokeNumber];
-	console.log("Our joke is: "+joke");
+	console.log("Our joke is: "+joke);
 	return joke.
 }
 
@@ -111,7 +111,7 @@ var getJokeAbout = function(topic){
 	//regex off final "s" "ed" or "er"
 	topic = topic.replace(/s$|ed$|er$/gi,"");
 	
-	console.log("Our topic is: "+topic");
+	console.log("Our topic is: "+topic);
 	
 	//so that we can randomize and not always get the first joke about a topic
 	var length = jokeList.length;
@@ -120,10 +120,10 @@ var getJokeAbout = function(topic){
 	for(var i = 0; i < jokeList.length; i++){
 			//start somewhere and modulo us back down
 			var which = (i + randomOffset) % length;
-			console.log("Getting joke #"+which");
+			console.log("Getting joke #"+which);
 			var joke = jokeList[which];
 			if(joke.toLowerCase().indexOf(topic) > -1){
-				console.log("Our joke is: "+joke");
+				console.log("Our joke is: "+joke);
 				return joke;
 			}
 	}
