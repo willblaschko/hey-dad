@@ -1,11 +1,15 @@
 //initialize express
 var express = require('express');
-//initialize alexa
+//initialize alexa-app
 var alexa = require('alexa-app');
+//initialize body-parser
+var bodyParser = require('body-parser');
 //initialize the app and set the port
-app = express();
-app.use(express.static(__dirname + '/public'));
+var app = express();
 app.set('port', (process.env.PORT || 5000));
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.set('view engine','ejs');
 
 //what we say when we can't find a matching joke
@@ -14,17 +18,6 @@ var jokeFailed = "Sorry, your old dad's memory ain't what it used to be. Try me 
 //create and assign our Alexa App instance to an address on express, in this case https://hey-dad.herokuapp.com/api/hey-dad
 var alexaApp = new alexa.app('hey-dad');
 alexaApp.express(app, "/api/");
-
-// Manually hook the handler function into express 
-app.post('/hey-dad',function(req, res) {
-	// connect express to alexa-app 
-	alexaApp.request(req.body)     
-	// alexa-app returns a promise with the response   
-	.then(function(response) { 
-	// stream it to express' output 
-		res.json(response);      
-	});
-});
 
 //our intent that is launched when "Hey Alexa, open Hey Dad" command is made
 alexaApp.launch(function(request,response) {
