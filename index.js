@@ -122,7 +122,7 @@ var getJoke = function(){
 //this function tries to do a dumb string match against our joke list, this is not performant
 var getJokeAbout = function(topic){
 	//regex off final "s" "ed" or "er"
-	topic = topic.replace(/s$|ed$|er$/gi,"");
+	topic = topic.replace(/(s|ed|er)$/gi,"");
 	
 	console.log("Our topic is: "+topic);
 	
