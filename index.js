@@ -101,7 +101,9 @@ var getJoke = function(){
 	var length = jokeList.length;
 	var jokeNumber = Math.floor(Math.random() * length);
 	console.log("Getting joke #"+jokeNumber");
-	return jokeList[jokeNumber];
+	var joke = jokeList[jokeNumber];
+	console.log("Our joke is: "+joke");
+	return joke.
 }
 
 //this function tries to do a dumb string match against our joke list, this is not performant
@@ -109,15 +111,19 @@ var getJokeAbout = function(topic){
 	//regex off final "s" "ed" or "er"
 	topic = topic.replace(/s$|ed$|er$/gi,"");
 	
+	console.log("Our topic is: "+topic");
+	
 	//so that we can randomize and not always get the first joke about a topic
 	var length = jokeList.length;
 	var randomOffset = Math.floor(Math.random() * length);
 	
 	for(var i = 0; i < jokeList.length; i++){
+			//start somewhere and modulo us back down
 			var which = (i + randomOffset) % length;
 			console.log("Getting joke #"+which");
 			var joke = jokeList[which];
 			if(joke.toLowerCase().indexOf(topic) > -1){
+				console.log("Our joke is: "+joke");
 				return joke;
 			}
 	}
