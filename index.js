@@ -5,7 +5,6 @@ var alexa = require('alexa-app');
 //initialize the app and set the port
 var app = express();
 app.set('port', (process.env.PORT || 5000));
-app.use(express.bodyParser());
 app.set('view engine','ejs');
 
 //what we say when we can't find a matching joke
