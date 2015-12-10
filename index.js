@@ -98,14 +98,28 @@ alexaApp.intent('GoodbyeDad',{
 
 //this function gets a single joke based on a RNG
 var getJoke = function(){
-	return "This is a joke!";
+	var length = jokeList.length;
+	var jokeNumber = Math.floor(Math.random() * length);
+	return jokeList[length];
 }
 
 //this function tries to do a dumb string match against our joke list, this is not performant
 var getJokeAbout = function(topic){
+	//regex off final "s" "ed" or "er"
 	topic = topic.replace(/s$|ed$|er$/gi,"");
 	
-	return "This is a joke about: "+topic;
+	//so that we can randomize and not always get the first joke about a topic
+	var length = jokeList.length;
+	var randomOffset = Math.floor(Math.random() * length);
+	
+	for(var i = 0; i < jokeList.length; i++){
+			var which = (i + randomOffset) % length;
+			var joke = jokeList[which];
+			if(joke.toLowerCase().indexOf(topic) > -1){
+				return joke;
+			}
+	}
+	return null;
 }
 
 //a shortcut to get our app schema
