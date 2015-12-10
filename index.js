@@ -88,7 +88,7 @@ alexaApp.intent('GoodbyeDad',{
 		//define our custom variables, in this case, none
         "slots" : {},
 		//define our utterances, we're saying goodbye to Dad
-        "utterances" : ["Shut up","I don't want to hear anymore","Goodbye","No","Bye"]
+        "utterances" : ["Shut up","I don't want to hear anymore","Good bye dad"]
     },
     function(request, response){
 		//say "goodbye"
