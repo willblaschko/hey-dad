@@ -120,9 +120,9 @@ var getJokeAbout = function(topic){
 	for(var i = 0; i < jokeList.length; i++){
 			//start somewhere and modulo us back down
 			var which = (i + randomOffset) % length;
-			console.log("Getting joke #"+which);
 			var joke = jokeList[which];
 			if(joke.toLowerCase().indexOf(topic) > -1){
+				console.log("Getting joke #"+which);
 				console.log("Our joke is: "+joke);
 				return joke;
 			}
