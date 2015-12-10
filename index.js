@@ -3,15 +3,16 @@ var express = require('express');
 //initialize alexa
 var alexa = require('alexa-app');
 //initialize the app and set the port
-var app = express();
+app = express();
+process.env.PWD = process.cwd();
+app.use(express.static(process.env.PWD + '/public'));
 app.set('port', (process.env.PORT || 5000));
-app.set('view engine','ejs');
 
 //what we say when we can't find a matching joke
 var jokeFailed = "Sorry, your old dad's memory ain't what it used to be. Try me with another.";
 
-//create and assign our Alexa App instance to an address on express, in this case https://hey-dad.herokuapp.com/api/hey-dad
-var alexaApp = new alexa.app('hey-dad');
+//create and assign our Alexa App instance to an address on express, in this case https://hey-dad.herokuapp.com/api/heydad
+var alexaApp = new alexa.app('heydad');
 alexaApp.express(app, "/api/");
 
 //our intent that is launched when "Hey Alexa, open Hey Dad" command is made
