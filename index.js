@@ -100,7 +100,8 @@ alexaApp.intent('GoodbyeDad',{
 var getJoke = function(){
 	var length = jokeList.length;
 	var jokeNumber = Math.floor(Math.random() * length);
-	return jokeList[length];
+	console.log("Getting joke #"+jokeNumber");
+	return jokeList[jokeNumber];
 }
 
 //this function tries to do a dumb string match against our joke list, this is not performant
@@ -114,6 +115,7 @@ var getJokeAbout = function(topic){
 	
 	for(var i = 0; i < jokeList.length; i++){
 			var which = (i + randomOffset) % length;
+			console.log("Getting joke #"+which");
 			var joke = jokeList[which];
 			if(joke.toLowerCase().indexOf(topic) > -1){
 				return joke;
