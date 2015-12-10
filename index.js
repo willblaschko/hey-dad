@@ -30,7 +30,7 @@ alexaApp.intent('TellMeAJoke',{
 		//define our custom variables, in this case, none
         "slots" : {},
 		//define our utterances, basically the whole tell me a joke
-        "utterances" : ["Tell me {another|} joke","What does the dad say?","Make me laugh.","{That's|You're} not funny","Ha ha ha","Very funny","That's so {corny|lame|stupid}"]
+        "utterances" : ["Tell me {another|} joke","What does the dad say","Make me laugh.","{That's|You're} not funny","Ha ha ha","Very funny","That's so {corny|lame|stupid}"]
     },
     function(request, response){
 		//our joke which we share to both the companion app and the Alexa device
@@ -71,7 +71,7 @@ alexaApp.intent('TellMeAJokeAbout',{
 		}
 		response.say(joke);
 		//let's keep it open so we can tell more jokes!
-		response.shouldEndSession(false, "Come on, say: 'Tell me a joke!'");
+		response.shouldEndSession(false, "Come on, say: 'Tell me a joke'");
 		response.send();
 });
 
@@ -82,7 +82,7 @@ alexaApp.intent('GoodbyeDad',{
 		//define our custom variables, in this case, none
         "slots" : {},
 		//define our utterances, we're saying goodbye to Dad
-        "utterances" : ["Shut up!","I don't want to hear anymore.","Goodbye","No","Bye"]
+        "utterances" : ["Shut up","I don't want to hear anymore","Goodbye","No","Bye"]
     },
     function(request, response){
 		//say "goodbye"
