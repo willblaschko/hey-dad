@@ -6,8 +6,6 @@ var alexa = require('alexa-app');
 app = express();
 app.use(express.static(__dirname + '/public'));
 app.set('port', (process.env.PORT || 5000));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.set('view engine','ejs');
 
 //what we say when we can't find a matching joke
