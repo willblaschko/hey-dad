@@ -20,15 +20,23 @@ var alexaApp = new alexa.app('hey-dad');
 alexaApp.express(app, "/api/");
 
 //our intent that is launched when "Hey Alexa, open Hey Dad" command is made
+//since our app only has the one function (tell a bad joke), we will just do that when it's launched
 alexaApp.launch(function(request,response) {
 	//log our app launch
 	console.log("App launched"); 
-	//this is what the Alexa device will say at first
-	response.say("Hey champ! Do you want to hear a joke?");
-	//this is what it'll say when prompted again
-	response.shouldEndSession(false, "Come on, say: 'Tell me a joke!'");
-	//send the response back to Alexa Skills to transmit to the user
-	response.send();    
+	
+	//our joke which we share to both the companion app and the Alexa device
+	var joke = getJoke();
+	//if we failed to get a joke, apologize
+	if(!joke){
+		joke = jokeFailed;
+	}else{
+		//only display it in the companion app if we have a joke
+		response.card(joke);
+	}
+	response.say(joke);
+	response.send();
+	
 });
 
 //our TellMeAJoke intent, this handles the majority of our interactions.
@@ -49,8 +57,6 @@ alexaApp.intent('TellMeAJoke',{
 			response.card(joke);
 		}
 		response.say(joke);
-		//let's keep it open so we can tell more jokes!
-		response.shouldEndSession(false, "Come on, say: 'Tell me a joke!'");
 		response.send();
 });
 
@@ -59,7 +65,7 @@ alexaApp.intent('TellMeAJokeAbout',{
 		//define our custom variables, in this case the topic of our joke
         "slots" : {"TOPIC":"LITERAL"},
 		//define our utterances, basically the whole tell me a joke
-        "utterances" : ["{Tell me a joke|I want to hear about|What|What do you think about|} about {a|the|} {topic|TOPIC}","Tell me a {topic|TOPIC} joke"]
+        "utterances" : ["{Tell me a joke|I want to hear about|What|What do you think about|} about {a|the|} {penguins|skeletons|chickens|dracula|music|ducks|elephants|Christmas|TOPIC}","Tell me a {topic|TOPIC} joke"]
     },
     function(request, response){
 		
@@ -76,15 +82,14 @@ alexaApp.intent('TellMeAJokeAbout',{
 			response.card(joke);
 		}
 		response.say(joke);
-		//let's keep it open so we can tell more jokes!
-		response.shouldEndSession(false, "Come on, say: 'Tell me a joke'");
 		response.send();
 });
 
 
 
 //our GoodbyeDad intent, this ends the conversation
-alexaApp.intent('GoodbyeDad',{
+//we'll add this back in if our app has more than one real intent
+/*alexaApp.intent('GoodbyeDad',{
 		//define our custom variables, in this case, none
         "slots" : {},
 		//define our utterances, we're saying goodbye to Dad
@@ -94,7 +99,7 @@ alexaApp.intent('GoodbyeDad',{
 		//say "goodbye"
 		response.say("Ok then. We can chat later sport! Just say: 'Hey Dad!'");
 		response.send();
-});
+});*/
 
 //our About intent, this talks about the icons we used
 alexaApp.intent('IntentAbout',{
