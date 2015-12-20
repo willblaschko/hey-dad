@@ -131,14 +131,16 @@ var getJokeAbout = function(topic){
 	
 	console.log("Our topic is: "+topic);
 	
+	var jokes = shuffle(jokeList);
+	
 	//so that we can randomize and not always get the first joke about a topic
-	var length = jokeList.length;
+	var length = jokes.length;
 	var randomOffset = Math.floor(Math.random() * length);
 	
-	for(var i = 0; i < jokeList.length; i++){
+	for(var i = 0; i < jokes.length; i++){
 			//start somewhere and modulo us back down
 			var which = (i + randomOffset) % length;
-			var joke = jokeList[which];
+			var joke = jokes[which];
 			console.log("Checking joke:"+which);
 			if(joke.toLowerCase().indexOf(topic) > -1){
 				console.log("Getting joke #"+which);
@@ -147,6 +149,26 @@ var getJokeAbout = function(topic){
 			}
 	}
 	return null;
+}
+
+//shuffle our jokes for our topic function
+var shuffle = function(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
 
 //a shortcut to get our app schema
