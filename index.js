@@ -65,7 +65,13 @@ alexaApp.intent('TellMeAJokeAbout',{
 		//define our custom variables, in this case the topic of our joke
         "slots" : {"TOPIC":"LITERAL"},
 		//define our utterances, basically the whole tell me a joke
-        "utterances" : ["{Get me a joke|Tell me a joke|I want to hear|What|What do you think|A joke} about {a|the||} {penguin|skeleton|chickens|dracula|music|duck|elephant|Christmas|TOPIC}","Tell me a {topic|TOPIC} joke"]
+        "utterances" : ["Get me a joke about {a|the||} {penguin|skeleton|chickens|dracula|music|duck|elephant|Christmas|TOPIC}",
+			"Tell me a joke about {a|the||} {penguin|skeleton|chickens|dracula|music|duck|elephant|Christmas|TOPIC}",
+			"I want to hear about {a|the||} {penguin|skeleton|chickens|dracula|music|duck|elephant|Christmas|TOPIC}",
+			"What about {a|the||} {penguin|skeleton|chickens|dracula|music|duck|elephant|Christmas|TOPIC}",
+			"What do you think about {a|the||} {penguin|skeleton|chickens|dracula|music|duck|elephant|Christmas|TOPIC}",
+			"A joke about {a|the||} {penguin|skeleton|chickens|dracula|music|duck|elephant|Christmas|TOPIC}",
+			"Tell me a {topic|TOPIC} joke"]
     },
     function(request, response){
 		
