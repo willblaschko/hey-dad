@@ -82,7 +82,7 @@ alexaApp.intent('TellMeAJokeAbout',{
 		var joke = getJokeAbout(topic);
 		//if we failed to get a joke, apologize
 		if(!joke){
-			joke = "I couldn't find a joke about "+topic+" but here is a joke about penguins..."+getJokeAbout("penguin");
+			joke = "I couldn't find a joke about "+topic+" but here is a joke about penguins. . . "+getJokeAbout("penguin");
 		}else{
 			//only display it in the companion app if we have a joke
 			response.card(joke);
