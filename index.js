@@ -16,7 +16,11 @@ app.use(bodyParser.json());
 app.set('view engine','ejs');
 
 app.use(function(req, res, next) {
-	if (!req.headers.signaturecertchainurl) {
+	try {
+		if (!req.headers.signaturecertchainurl) {
+			return next();
+		}
+	} catch (_error) {
 		return next();
 	}
 	req._body = true;
