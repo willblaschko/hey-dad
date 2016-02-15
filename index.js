@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.set('view engine','ejs');
 
 app.use(function(req, res, next) {
-	try {
 	if (!req.headers || !req.headers.signaturecertchainurl) {
 		return next();
 	}
