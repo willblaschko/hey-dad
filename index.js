@@ -6,11 +6,40 @@ var alexa = require('alexa-app');
 var bodyParser = require('body-parser');
 //initialize the app and set the port
 var app = express();
+//verifier to make sure our certs come from Amazon
+verifier = require 'alexa-verifier'
+
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine','ejs');
+
+app.use (req, res, next) ->
+  if not req.headers.signaturecertchainurl
+    return next()
+  # mark the request body as already having been parsed so it's ignored by 
+  # other body parser middlewares 
+  req._body = true
+ 
+  req.rawBody = ''
+  req.on 'data', (data) ->
+    req.rawBody += data
+  req.on 'end', ->
+    try
+      req.body = JSON.parse req.rawBody
+    catch er 
+      req.body = {}
+ 
+    cert_url  = req.headers.signaturecertchainurl
+    signature = req.headers.signature
+    requestBody = req.rawBody
+    verifier cert_url, signature, requestBody, (er) ->
+      if er 
+        console.error 'error validating the alexa cert:', er
+        res.status(401).json { status: 'failure', reason: er }
+      else
+        next()
 
 //what we say when we can't find a matching joke
 var jokeFailed = "Sorry, your old dad's memory ain't what it used to be. Try me with another.";
