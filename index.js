@@ -15,33 +15,41 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine','ejs');
 
-app.use(function(req, res, next){
-  if not req.headers.signaturecertchainurl{
+app.use(function(req, res, next) {
+  if (!req.headers.signaturecertchainurl) {
     return next();
   }
-  # mark the request body as already having been parsed so it's ignored by 
-  # other body parser middlewares 
   req._body = true;
- 
   req.rawBody = '';
-  req.on 'data', (data) ->
-    req.rawBody += data
-  req.on 'end', ->
-    try
-      req.body = JSON.parse req.rawBody
-    catch er 
-      req.body = {}
- 
-    cert_url  = req.headers.signaturecertchainurl
-    signature = req.headers.signature
-    requestBody = req.rawBody
-    verifier cert_url, signature, requestBody, (er) ->
-      if er 
-        console.error 'error validating the alexa cert:', er
-        res.status(401).json { status: 'failure', reason: er }
-      else
-        next()
+  req.on('data', function(data) {
+    return req.rawBody += data;
+  });
+  return req.on('end', function() {
+    var cert_url, er, requestBody, signature;
+    try {
+      req.body = JSON.parse(req.rawBody);
+    } catch (_error) {
+      er = _error;
+      req.body = {};
+    }
+    cert_url = req.headers.signaturecertchainurl;
+    signature = req.headers.signature;
+    requestBody = req.rawBody;
+    return verifier(cert_url, signature, requestBody, function(er) {
+      if (er) {
+        console.error('error validating the alexa cert:', er);
+        return res.status(401).json({
+          status: 'failure',
+          reason: er
+        });
+      } else {
+        return next();
+      }
+    });
+  });
 });
+
+
 //what we say when we can't find a matching joke
 var jokeFailed = "Sorry, your old dad's memory ain't what it used to be. Try me with another.";
 
