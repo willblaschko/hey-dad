@@ -19,6 +19,14 @@ var jokeFailed = "Sorry, your old dad's memory ain't what it used to be. Try me 
 var alexaApp = new alexa.app('hey-dad');
 alexaApp.express(app, "/api/");
 
+//make sure our app is only being launched by the correct application (our Amazon Alexa app)
+alexaApp.pre = function(request,response,type) {
+	if (request.sessionDetails.application.applicationId != "amzn1.echo-sdk-ams.app.440526a5-4703-4886-87eb-d09a6e9eaf13") {
+		// Fail ungracefully 
+		response.fail("Invalid applicationId");
+	}
+};
+
 //our intent that is launched when "Hey Alexa, open Hey Dad" command is made
 //since our app only has the one function (tell a bad joke), we will just do that when it's launched
 alexaApp.launch(function(request,response) {
