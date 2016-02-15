@@ -15,14 +15,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine','ejs');
 
-app.use (req, res, next) ->
-  if not req.headers.signaturecertchainurl
-    return next()
+app.use(function(req, res, next){
+  if not req.headers.signaturecertchainurl{
+    return next();
+  }
   # mark the request body as already having been parsed so it's ignored by 
   # other body parser middlewares 
-  req._body = true
+  req._body = true;
  
-  req.rawBody = ''
+  req.rawBody = '';
   req.on 'data', (data) ->
     req.rawBody += data
   req.on 'end', ->
@@ -40,7 +41,7 @@ app.use (req, res, next) ->
         res.status(401).json { status: 'failure', reason: er }
       else
         next()
-
+});
 //what we say when we can't find a matching joke
 var jokeFailed = "Sorry, your old dad's memory ain't what it used to be. Try me with another.";
 
