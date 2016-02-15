@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 //initialize the app and set the port
 var app = express();
 //verifier to make sure our certs come from Amazon
-verifier = require 'alexa-verifier'
+verifier = require('alexa-verifier');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static('public'));
