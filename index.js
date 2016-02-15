@@ -16,37 +16,37 @@ app.use(bodyParser.json());
 app.set('view engine','ejs');
 
 app.use(function(req, res, next) {
-  if (!req.headers.signaturecertchainurl) {
-    return next();
-  }
-  req._body = true;
-  req.rawBody = '';
-  req.on('data', function(data) {
-    return req.rawBody += data;
-  });
-  return req.on('end', function() {
-    var cert_url, er, requestBody, signature;
-    try {
-      req.body = JSON.parse(req.rawBody);
-    } catch (_error) {
-      er = _error;
-      req.body = {};
-    }
-    cert_url = req.headers.signaturecertchainurl;
-    signature = req.headers.signature;
-    requestBody = req.rawBody;
-    return verifier(cert_url, signature, requestBody, function(er) {
-      if (er) {
-        console.error('error validating the alexa cert:', er);
-        return res.status(401).json({
-          status: 'failure',
-          reason: er
-        });
-      } else {
-        return next();
-      }
-    });
-  });
+	if (!req.headers.signaturecertchainurl) {
+		return next();
+	}
+	req._body = true;
+	req.rawBody = '';
+	req.on('data', function(data) {
+		return req.rawBody += data;
+	});
+	return req.on('end', function() {
+		var cert_url, er, requestBody, signature;
+		try {
+			req.body = JSON.parse(req.rawBody);
+		} catch (_error) {
+			er = _error;
+			req.body = {};
+		}
+		cert_url = req.headers.signaturecertchainurl;
+		signature = req.headers.signature;
+		requestBody = req.rawBody;
+		return verifier(cert_url, signature, requestBody, function(er) {
+			if (er) {
+				console.error('error validating the alexa cert:', er);
+				return res.status(401).json({
+					status: 'failure',
+					reason: er
+				});
+			} else {
+				return next();
+			}
+		});
+	});
 });
 
 
