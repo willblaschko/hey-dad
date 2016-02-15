@@ -17,12 +17,10 @@ app.set('view engine','ejs');
 
 app.use(function(req, res, next) {
 	try {
-		if (!req.headers.signaturecertchainurl) {
-			return next();
-		}
-	} catch (_error) {
+	if (!req.headers || !req.headers.signaturecertchainurl) {
 		return next();
 	}
+
 	req._body = true;
 	req.rawBody = '';
 	req.on('data', function(data) {
