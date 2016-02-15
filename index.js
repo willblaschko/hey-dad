@@ -44,7 +44,7 @@ alexaApp.intent('TellMeAJoke',{
 		//define our custom variables, in this case, none
         "slots" : {},
 		//define our utterances, basically the whole tell me a joke
-        "utterances" : ["Get me a joke","A joke","Tell me {another|} joke","What does the dad say","Make me laugh.","{That's|You're} not funny","Ha ha ha","Very funny","That's so {corny|lame|stupid}"]
+        "utterances" : ["Tell me a joke","Get me a joke","A joke","Tell me {another|} joke","What does the dad say","Make me laugh.","{That's|You're} not funny","Ha ha ha","Very funny","That's so {corny|lame|stupid}"]
     },
     function(request, response){
 		//our joke which we share to both the companion app and the Alexa device
